@@ -112,3 +112,18 @@ export default function Home() {
     </>
   );
 }
+export async function getStaticPaths() {
+  const ids = ["1", "2", "3"];
+  return {
+    paths: ids.map((id) => ({ params: { id } })),
+    fallback: "blocking",
+  };
+}
+export async function getStaticProps({ locale, params }) {
+  return {
+    props: {
+      id: params.id,
+    },
+    revalidate: 60 * 60 * 12,
+  };
+}
